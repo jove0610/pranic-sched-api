@@ -1,0 +1,22 @@
+service: pranic-sched-api
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  deploymentMethod: direct
+  region: us-east-2
+  runtime: nodejs16.x
+  timeout: 30
+
+functions:
+  main:
+    handler: dist/main.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: ANY
+          path: '{proxy+}'
