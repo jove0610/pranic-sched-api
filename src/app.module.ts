@@ -3,8 +3,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import envConfig, { EnvConfig } from './config/environment';
-import { CoursesModule } from './courses/courses.module';
-import { UsersModule } from './users/users.module';
+import { CoursesModule } from './modules/courses/courses.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
