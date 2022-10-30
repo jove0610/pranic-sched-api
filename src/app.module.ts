@@ -1,14 +1,24 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+
+import envConfig, { EnvConfig } from './config/environment';
 import { CoursesModule } from './courses/courses.module';
 import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
-    MongooseModule.forRoot(process.env.MONGO_URI || '', {
-      autoIndex: true,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [envConfig],
+    }),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (config: ConfigService) => ({
+        uri: config.get<EnvConfig>('database.mongoURI'),
+        autoIndex: true,
+      }),
     }),
     CoursesModule,
     UsersModule,
