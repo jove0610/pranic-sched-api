@@ -46,4 +46,8 @@ export class UsersService {
     }
     return user.delete();
   }
+
+  async findByEmail(email: string): Promise<User | null> {
+    return this.model.findOne({ email }).select('+password').exec();
+  }
 }

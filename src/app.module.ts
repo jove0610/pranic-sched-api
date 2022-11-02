@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import envConfig, { EnvConfig } from './config/environment';
+import { AuthModule } from './modules/auth/auth.module';
 import { CoursesModule } from './modules/courses/courses.module';
 import { UsersModule } from './modules/users/users.module';
 
@@ -20,6 +21,7 @@ import { UsersModule } from './modules/users/users.module';
         autoIndex: true,
       }),
     }),
+    AuthModule,
     CoursesModule,
     UsersModule,
   ],
