@@ -20,4 +20,12 @@ export class AuthController {
   async user(@Request() req: any): Promise<User> {
     return req.user;
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('logout')
+  async logout(@Request() req: any) {
+    const jwtToken: string = req.headers.authorization.split(' ')[1];
+    await this.authService.createBlacklistedToken(jwtToken);
+    return { message: 'success' };
+  }
 }
