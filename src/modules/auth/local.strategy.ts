@@ -1,21 +1,34 @@
 import { Strategy } from 'passport-local';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
+import * as bcrypt from 'bcryptjs';
 
-import { AuthService } from './auth.service';
 import { User } from '../users/schemas/user.schema';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
-  constructor(private authService: AuthService) {
+  constructor(private usersService: UsersService) {
     super({ usernameField: 'email' });
   }
 
-  async validate(email: string, password: string): Promise<User> {
-    const user = await this.authService.validateUser(email, password);
-    if (!user) {
+  async validate(email: string, pass: string): Promise<User> {
+    let user = await this.usersService.findByEmail(email, true);
+    if (user === null) {
       throw new UnauthorizedException();
     }
+
+    const isMatch = await bcrypt.compare(pass, user.password);
+    if (!isMatch) {
+      throw new UnauthorizedException();
+    }
+
+    // Get user again but this time do not select password
+    user = await this.usersService.findByEmail(email, false);
+    if (user === null) {
+      throw new UnauthorizedException();
+    }
+
     return user;
   }
 }
