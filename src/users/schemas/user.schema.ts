@@ -24,7 +24,7 @@ export class User {
   isOfficeAdmin: boolean;
 
   @Prop({ required: true, select: false })
-  password?: string;
+  password: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

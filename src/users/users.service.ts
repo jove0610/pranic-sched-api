@@ -25,6 +25,7 @@ export class UsersService {
     let newUser = new this.userModel(createUserDto);
     try {
       newUser = await newUser.save();
+      // @ts-expect-error: password should not be included in response
       newUser.password = undefined;
       return newUser;
     } catch ({ name, code, message }) {
