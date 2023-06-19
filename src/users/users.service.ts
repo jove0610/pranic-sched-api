@@ -52,9 +52,7 @@ export class UsersService {
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     const user = await this.userModel
-      .findByIdAndUpdate(id, updateUserDto, {
-        new: true,
-      })
+      .findByIdAndUpdate(id, updateUserDto, { new: true })
       .exec();
 
     if (!user) {

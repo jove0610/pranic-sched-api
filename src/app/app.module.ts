@@ -7,6 +7,7 @@ import { AppService } from './app.service';
 import envConfig from 'src/config/envConfig';
 import { UsersModule } from 'src/users/users.module';
 import { AuthModule } from 'src/auth/auth.module';
+import { CountriesModule } from 'src/countries/countries.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { AuthModule } from 'src/auth/auth.module';
     }),
     UsersModule,
     AuthModule,
+    CountriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
