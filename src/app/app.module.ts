@@ -10,6 +10,7 @@ import { UsersModule } from 'src/users/users.module';
 import { AuthModule } from 'src/auth/auth.module';
 import { CountriesModule } from 'src/countries/countries.module';
 import { CoursesModule } from 'src/courses/courses.module';
+import { StatesModule } from 'src/states/states.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { CoursesModule } from 'src/courses/courses.module';
     AuthModule,
     CountriesModule,
     CoursesModule,
+    StatesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
