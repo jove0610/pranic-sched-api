@@ -19,10 +19,10 @@ export class CountriesService {
   ) {}
 
   async create(createCountryDto: CreateCountryDto): Promise<Country> {
-    let newUser = new this.countryModel(createCountryDto);
+    let newCountry = new this.countryModel(createCountryDto);
     try {
-      newUser = await newUser.save();
-      return newUser;
+      newCountry = await newCountry.save();
+      return newCountry;
     } catch ({ name, code, message }) {
       if (code === DUPLICATE_KEY_CODE) {
         throw new BadRequestException('Country already exist.');
